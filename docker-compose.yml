@@ -9,16 +9,16 @@ services:
     env_file:
       - .env
     depends_on:
-      - mongo_db
+      - mongo_new
     networks:
       - app-network
     environment:
       PORT: 3000
-      MONGO_URL: mongodb://root:root@mongo_db:27017/220710
+      MONGO_URL: mongodb://root:root@mongo_new:27017/220710
 
-  mongo_db:
+  mongo_new:
     image: mongo
-    container_name: mongo_db
+    container_name: mongo_new
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
