@@ -2,7 +2,7 @@ import express from "express";
 import 'dotenv/config'
 import { envs } from "./config/envs.plugin";
 import { MongoDatabase } from "./data/init";
-import { InfectionModel } from "./data/models/infection.model";
+import { SmallpoxModel } from "./data/models/smallpox.model";
 import { AppRoutes } from "./presentation/controllers/routes";
 import { emailJob } from "./domain/jobs/email.job";
 
@@ -24,7 +24,7 @@ app.get("/", (req, res)=>{
 
 app.post("/", async (req, res) => {
     const { title, description, lat, lng } = req.body
-    const newIncident = await InfectionModel.create({
+    const newIncident = await SmallpoxModel.create({
         title,
         description,
         lat,

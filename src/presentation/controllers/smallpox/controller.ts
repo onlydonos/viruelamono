@@ -1,33 +1,33 @@
 import { Request, Response } from 'express';
-import { InfectionModel } from '../../../data/models/infection.model';
+import { SmallpoxModel } from '../../../data/models/smallpox.model';
 
-export class InfectionController {
-    public getInfections = async (req: Request, res: Response) => {
+export class SmallpoxController {
+    public getSmallpox = async (req: Request, res: Response) => {
         try {
-            const infections = await InfectionModel.find();
-            return res.json(infections);
+            const smallpox = await SmallpoxModel.find();
+            return res.json(smallpox);
         } catch (error) {
             return res.status(500).json({ message: "Error al obtener los casos" });
         }
     }
 
-    public getInfectionsLastWeek = async (req: Request, res: Response) => {
+    public getsmallpoxLastWeek = async (req: Request, res: Response) => {
         try {
             const oneWeekAgo = new Date();
             oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-            const infections = await InfectionModel.find({ creationDate: { $gte: oneWeekAgo } });
-            return res.json(infections);
+            const smallpoxs = await SmallpoxModel.find({ creationDate: { $gte: oneWeekAgo } });
+            return res.json(smallpoxs);
         } catch (error) {
             return res.status(500).json({ message: "Error al obtener los casos de la última semana" });
         }
     }
 
 
-    public createInfection = async (req: Request, res: Response) => {
+    public createSmallpox = async (req: Request, res: Response) => {
         try {
             const { lat, lng, genre, age } = req.body;
-            const newInfection = await InfectionModel.create({
+            const newsmallpox = await SmallpoxModel.create({
                 lat,
                 lng,
                 genre,
@@ -35,7 +35,7 @@ export class InfectionController {
                 creationDate: new Date(),
                 isSent: false
             });
-            res.json(newInfection);
+            res.json(newsmallpox);
         } catch (error:any) {
             if (error.name === 'ValidationError') {
 
@@ -46,36 +46,36 @@ export class InfectionController {
     }  
 
   
-    public getInfectionById = async (req: Request, res: Response) => {
+    public getSmallpoxById = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
-            const infection = await InfectionModel.findById(id);
-            if (!infection) {
+            const smallpox = await SmallpoxModel.findById(id);
+            if (!smallpox) {
                 return res.status(404).json({ message: "Caso no encontrado" });
             }
-            return res.json(infection);
+            return res.json(smallpox);
         } catch (error) {
             return res.status(500).json({ message: "Error al obtener el caso" });
         }
     }
 
     
-    public updateInfection = async (req: Request, res: Response) => {
+    public updateSmallpox = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
             const { lat, lng, genre, age, isSent } = req.body;
     
-            const updatedInfection = await InfectionModel.findByIdAndUpdate(
+            const updatedsmallpox = await SmallpoxModel.findByIdAndUpdate(
                 id,
                 { lat, lng, genre, age, isSent },
-                { new: true, runValidators: true } // Agrega `runValidators: true` para validar los datos durante la actualización
+                { new: true, runValidators: true }
             );
     
-            if (!updatedInfection) {
+            if (!updatedsmallpox) {
                 return res.status(404).json({ message: "Caso no encontrado" });
             }
     
-            return res.json(updatedInfection);
+            return res.json(updatedsmallpox);
         } catch (error:any) {
             if (error.name === 'ValidationError') {
                 return res.status(400).json({ message: "Datos inválidos: " + error.message });
@@ -85,12 +85,12 @@ export class InfectionController {
     }
 
     
-    public deleteInfection = async (req: Request, res: Response) => {
+    public deleteSmallpox = async (req: Request, res: Response) => {
         try {
             const { id } = req.params;
-            const infection = await InfectionModel.findByIdAndDelete(id);
+            const smallpox = await SmallpoxModel.findByIdAndDelete(id);
 
-            if (!infection) {
+            if (!smallpox) {
                 return res.status(404).json({ message: "Caso no encontrado" });
             }
             return res.json({ message: "Caso eliminado" });

@@ -1,6 +1,6 @@
 import { envs } from "../../config/envs.plugin";
 
-export function generateInfectionEmailTemplate(genre: string, age: number, lat: number, lng: number): string {
+export function generatesmallpoxEmailTemplate(genre: string, age: number, lat: number, lng: number): string {
     const mapboxUrl = generateMapboxStaticImageURL(lat, lng)
     return `
     <!DOCTYPE html>
@@ -8,11 +8,13 @@ export function generateInfectionEmailTemplate(genre: string, age: number, lat: 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detalles del Incidente - Viruela del Mono</title>
+        <title>Notificación de Incidente Sanitario - Viruela del Mono</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+            
             body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f7e9e9;
+                font-family: 'Poppins', sans-serif;
+                background-color: #f4f0f8;
                 color: #333;
                 margin: 0;
                 padding: 0;
@@ -20,15 +22,15 @@ export function generateInfectionEmailTemplate(genre: string, age: number, lat: 
             .container {
                 width: 100%;
                 max-width: 600px;
-                margin: 30px auto;
-                background-color: #fff8f0;
-                border-radius: 15px;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                margin: 40px auto;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
                 overflow: hidden;
-                border: 3px solid #ff6b6b;
+                border: 2px solid #9c89b8;
             }
             .header {
-                background-color: #ff6b6b;
+                background-color: #9c89b8;
                 color: #ffffff;
                 padding: 30px;
                 text-align: center;
@@ -36,54 +38,54 @@ export function generateInfectionEmailTemplate(genre: string, age: number, lat: 
             }
             .header h1 {
                 margin: 0;
-                font-size: 28px;
-                font-weight: bold;
+                font-size: 24px;
+                font-weight: 600;
                 text-transform: uppercase;
-                letter-spacing: 1.5px;
+                letter-spacing: 1px;
             }
             .header::after {
-                content: url('https://example.com/monkeypox-icon.png'); /* Icono temático */
+                content: url('https://example.com/health-icon.png'); /* Ícono de sanidad */
                 position: absolute;
-                top: 10px;
-                right: 10px;
+                top: 15px;
+                right: 15px;
                 width: 40px;
                 height: 40px;
             }
             .content {
                 padding: 25px;
                 font-size: 16px;
-                line-height: 1.6;
+                line-height: 1.7;
             }
             .content p {
-                margin: 12px 0;
+                margin: 15px 0;
             }
             .content strong {
-                color: #ff4e50;
+                color: #9c89b8;
             }
             .map-container {
                 text-align: center;
                 margin-top: 20px;
             }
             .map-img {
-                width: 90%;
+                width: 100%;
                 height: auto;
-                border-radius: 15px;
-                border: 2px solid #ff4e50;
+                border-radius: 10px;
+                border: 2px solid #9c89b8;
             }
             .footer {
-                background-color: #ffe4e4;
+                background-color: #ece1f8;
                 color: #555;
                 padding: 15px;
                 text-align: center;
                 font-size: 12px;
             }
             .highlight {
-                background-color: #ffdddd;
+                background-color: #dfd6f0;
                 padding: 5px;
                 border-radius: 5px;
             }
             .alert-banner {
-                background-color: #ff6b6b;
+                background-color: #b48bd8;
                 color: white;
                 font-size: 14px;
                 padding: 10px;
@@ -91,26 +93,40 @@ export function generateInfectionEmailTemplate(genre: string, age: number, lat: 
                 font-weight: bold;
                 text-transform: uppercase;
             }
+            @media (max-width: 768px) {
+                .container {
+                    margin: 20px auto;
+                }
+                .header h1 {
+                    font-size: 22px;
+                }
+                .content {
+                    padding: 20px;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
-                <h1>¡Alerta de Viruela del Mono!</h1>
+                <h1>Notificación de Incidente Sanitario</h1>
+                <p>Viruela del Mono</p>
             </div>
             <div class="alert-banner">
-                Casos recientes detectados en tu área
+                Incidente reciente en tu área
             </div>
             <div class="content">
-                <p><strong>Género del afectado:</strong> <span class="highlight">${genre}</span></p>
-                <p><strong>Edad del afectado:</strong> <span class="highlight">${age} años</span></p>
-                <p><strong>Ubicación aproximada:</strong> Latitud ${lat}, Longitud ${lng}</p>
+                <p><strong>Datos del caso confirmado:</strong></p>
+                <p><strong>Género del paciente:</strong> <span class="highlight">${genre}</span></p>
+                <p><strong>Edad del paciente:</strong> <span class="highlight">${age} años</span></p>
+                <p><strong>Ubicación geográfica aproximada:</strong> Latitud ${lat}, Longitud ${lng}</p>
                 <div class="map-container">
                     <img class="map-img" src="${mapboxUrl}" alt="Ubicación del incidente"/>
                 </div>
+                <p>Se recomienda seguir las pautas establecidas por las autoridades sanitarias y mantenerse informado a través de canales oficiales. Para más información sobre las medidas preventivas y de seguridad, visite el sitio web de su institución de salud local.</p>
             </div>
             <div class="footer">
-                <p>Este correo ha sido generado automáticamente para mantenerte informado. No respondas a este mensaje.</p>
+                <p>Este mensaje es generado automáticamente con fines informativos. Por favor, no responda a este correo.</p>
             </div>
         </div>
     </body>

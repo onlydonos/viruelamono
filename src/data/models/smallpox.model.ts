@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const infectionSchema = new mongoose.Schema({
+const smallpoxSchema = new mongoose.Schema({
     lat: {
         type: Number,
         required: true
@@ -15,7 +15,6 @@ const infectionSchema = new mongoose.Schema({
     },
     genre: {
         type: String,
-        enum: ["Masculino", "Femenino"],
         required: true
     },
     age: {
@@ -28,4 +27,4 @@ const infectionSchema = new mongoose.Schema({
     }
 });
 
-export const InfectionModel = mongoose.model("Infection", infectionSchema);
+export const SmallpoxModel = mongoose.model("Smallpox", smallpoxSchema);
